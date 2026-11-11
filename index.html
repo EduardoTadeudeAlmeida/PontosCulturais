@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Descubra Cotia - Pontos Culturais e Turísticos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --secondary-color: #4caf50;
+            --dark-color: #333333;
+            --light-color: #f9f9f9;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--light-color); color: var(--dark-color); line-height: 1.6; }
+
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
+            color: var(--white); text-align: center; padding: 4rem 1rem;
+        }
+        header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+
+        /* Campo de Pesquisa Ativado */
+        .search-container { display: flex; justify-content: center; margin-bottom: 2.5rem; }
+        .search-container input {
+            width: 100%; max-width: 600px; padding: 0.9rem 1.2rem; font-size: 1rem;
+            border: 2px solid #ddd; border-radius: 30px; outline: none; transition: all 0.3s ease; box-shadow: var(--shadow);
+        }
+        .search-container input:focus { border-color: var(--secondary-color); box-shadow: 0 4px 10px rgba(76, 175, 80, 0.2); }
+
+        /* Grade de Cards */
+        .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; }
+        
+        .card {
+            background: var(--white); border-radius: 12px; overflow: hidden;
+            box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex; flex-direction: column; text-decoration: none; color: inherit;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); }
+
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-content { padding: 1.5rem; display: flex; flex-direction: column; flex-grow: 1; }
+        .card-title { font-size: 1.3rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+        .card-location { font-size: 0.85rem; color: #666; margin-bottom: 1rem; }
+        .card-description { font-size: 0.95rem; margin-bottom: 1rem; color: #444; flex-grow: 1; }
+        
+        .btn-details {
+            display: inline-block; background-color: var(--secondary-color); color: var(--white);
+            padding: 0.6rem 1rem; text-align: center; border-radius: 6px; font-weight: 600; font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        .btn-details:hover { background-color: var(--primary-color); }
+
+        .no-results { text-align: center; grid-column: 1 / -1; padding: 3rem; font-size: 1.2rem; color: #777; display: none; }
+        footer { text-align: center; padding: 2rem; background-color: var(--dark-color); color: var(--white); margin-top: 3rem; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Cultura & Turismo em Cotia</h1>
+        <p>Explore os principais pontos culturais e turísticos da região</p>
+    </header>
+
+    <main class="container">
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Pesquise por nome, local ou atividade (ex: Templo, Trilha)..." onkeyup="filterCards()">
+        </div>
+
+        <div class="cards-grid" id="cardsGrid">
+            <a href="templo-zu-lai.html" class="card" data-keywords="templo zu lai budista granja viana meditação">
+                <img src="https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=600&q=80" alt="Templo Zu Lai">
+                <div class="card-content">
+                    <h3 class="card-title">Templo Zu Lai</h3>
+                    <p class="card-location">📍 Estrada Fernando Nobre, 1461 - Granja Viana</p>
+                    <p class="card-description">O maior templo budista da América Latina. Inspirado na arquitetura chinesa da Dinastia Tang...</p>
+                    <span class="btn-details">Ver Consulta Detalhada</span>
+                </div>
+            </a>
+
+            <a href="parque-cemucam.html" class="card" data-keywords="parque cemucam natureza trilha ciclovia granja viana">
+                <img src="https://images.unsplash.com/photo-1519331379826-f10be5486c6f?auto=format&fit=crop&w=600&q=80" alt="Parque Cemucam">
+                <div class="card-content">
+                    <h3 class="card-title">Parque Cemucam</h3>
+                    <p class="card-location">📍 Rua Mesopotâmia, s/n - Jardim Passárgada</p>
+                    <p class="card-description">O único parque municipal de São Paulo localizado em outro município (Cotia)...</p>
+                    <span class="btn-details">Ver Consulta Detalhada</span>
+                </div>
+            </a>
+
+            <a href="sitio-mandu.html" class="card" data-keywords="sitio do mandu bandeirante historia taipa de pilao patrimonio">
+                <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Sitio do mandu">
+                <div class="card-content">
+                    <h3 class="card-title">Sitio do mandu</h3>
+                    <p class="card-location">📍 Região rural / Próx. Reserva do Morro Grande</p>
+                    <p class="card-description">Importante marco histórico do século XVIII, construído em taipa de pilão e pau-a-pique, tombado pelo IPHAN como habitação bandeirista remanescente.</p>
+                    <span class="btn-details">Ver Consulta Detalhada</span>
+                </div>
+            </a>
+
+            <a href="arautos.html" class="card" data-keywords="arautos do evangelho basilisca nossa senhora do rosario de fatima arquitetura religiosa">
+                <img src="https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=600&q=80" alt="Arautos do Evangelho">
+                <div class="card-content">
+                    <h3 class="card-title">Basílica N. Sra. do Rosário de Fátima</h3>
+                    <p class="card-location">📍 Itapecerica-Cotia</p>
+                    <p class="card-description">Santuário monumental gerido pelos Arautos do Evangelho, impressiona pela grandiosidade de sua arquitetura neogótica e detalhes artísticos sacros.</p>
+                    <span class="btn-details">Ver Consulta Detalhada</span>
+                </div>
+            </a>
+
+            <a href="cachoeira.html" class="card" data-keywords="Trilhas ecológicas de nível leve a moderado em meio à mata atlântica.">
+                <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/ab/65/43/20210221-091511-largejpg.jpg?w=700&h=400&s=1" alt="Cachoeira da Graça">
+                <div class="card-content">
+                    <h3 class="card-title">Cachoeira da Graça proporciona um refúgio natural de águas cristalinas</h3>
+                    <p class="card-location">📍 Estrada das Mulatas, 498 - Portal do Santa Paula, Cotia - SP</p>
+                    <p class="card-description">Trilhas ecológicas de nível leve a moderado em meio à mata atlântica.</p>
+                    <span class="btn-details">Ver Consulta Detalhada</span>
+                </div>
+            </a>
+
+        </div>
+
+
+        <div class="no-results" id="noResults">
+            Nenhum ponto cultural encontrado para a sua busca.
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Guia Cultural de Cotia</p>
+    </footer>
+
+    <script>
+        function filterCards() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.card');
+            const noResults = document.getElementById('noResults');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const keywords = card.getAttribute('data-keywords');
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const description = card.querySelector('.card-description').textContent.toLowerCase();
+
+                if (keywords.includes(filter) || title.includes(filter) || description.includes(filter)) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>
